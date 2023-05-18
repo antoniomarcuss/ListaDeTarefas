@@ -18,6 +18,11 @@ body{
     justify-content: center;
     align-items: center;
     min-height: 100vh;
+    background-image: url(img/fundo.jpg);
+    background-size: cover;
+    background-attachment: fixed;
+    background-repeat: no-repeat;
+    background-position: top center;
 }
 
 #container{
@@ -26,6 +31,7 @@ body{
     min-width: 300px;
     margin: 10px;
     position: relative;
+    background-color: white;
 }
 form{
     /* padding: 40px 50px 40px; */
