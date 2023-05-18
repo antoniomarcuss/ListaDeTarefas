@@ -19,7 +19,7 @@ body{
     background-attachment: fixed;
     background-repeat: no-repeat;
     background-position: top center;
-    overflow-y: auto;
+   
 }
 
 main{
@@ -93,6 +93,8 @@ input{
     flex-flow: column;
     justify-content: center;
     align-items: center;
+    max-height: calc(100vh - 200px); /* Defina a altura máxima desejada, ajuste conforme necessário */
+  overflow-y: auto; /* Adicionar rolagem vertical somente quando necessário */
 }
 
 
