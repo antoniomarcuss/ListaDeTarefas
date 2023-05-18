@@ -93,7 +93,7 @@ input{
     flex-flow: column;
     justify-content: center;
     align-items: center;
-    overflow-y: auto;
+    overflow-y: scroll
 }
 
 
