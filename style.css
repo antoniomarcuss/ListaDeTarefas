@@ -19,8 +19,7 @@ body{
     background-attachment: fixed;
     background-repeat: no-repeat;
     background-position: top center;
-    overflow-y: hidden;
-    
+    overflow-y: auto;
 }
 
 main{
@@ -38,7 +37,7 @@ main{
     margin: 5px;
     position: relative;
     background-color: white;
-    overflow-y: auto
+    
 }
 form{
     /* padding: 40px 50px 40px; */
@@ -59,14 +58,6 @@ h1{
     font-size: 1.5em;
     color: rgb(247, 247, 247);
     
-}
-
-
-#containerList{
-    display: flex;
-    flex-flow: column;
-    justify-content: center;
-    align-items: center;
 }
 
 input{
@@ -97,12 +88,20 @@ input{
    
 }
 
-ul{
-    margin: 15px;
-    width: 95%;
-    
-    
+#containerList{
+    display: flex;
+    flex-flow: column;
+    justify-content: center;
+    align-items: center;
 }
+
+
+
+ul{
+    width: 95%;
+    padding-bottom: 20px;
+}
+
 ul li{
     display: flex;
     justify-content: space-between;
