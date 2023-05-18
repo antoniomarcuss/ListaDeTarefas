@@ -36,7 +36,6 @@ main{
     margin: 5px;
     position: relative;
     background-color: white;
-    overflow-y: hidden;
     
 }
 form{
@@ -93,7 +92,7 @@ input{
     flex-flow: column;
     justify-content: center;
     align-items: center;
-    overflow-y: scroll
+    
 }
 
 
@@ -114,6 +113,7 @@ ul li{
     box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.374) ;
     border-radius: 5px;
     list-style-type: none;
+    
     
 }
 
