@@ -19,7 +19,8 @@ body{
     background-attachment: fixed;
     background-repeat: no-repeat;
     background-position: top center;
-    overflow-y: auto
+    overflow-y: hidden;
+    
 }
 
 main{
@@ -37,6 +38,7 @@ main{
     margin: 5px;
     position: relative;
     background-color: white;
+    overflow-y: auto
 }
 form{
     /* padding: 40px 50px 40px; */
