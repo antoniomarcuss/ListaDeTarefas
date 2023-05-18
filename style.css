@@ -23,7 +23,6 @@ body{
     background-attachment: fixed;
     background-repeat: no-repeat;
     background-position: top center;
-    overflow-y: hidden;
 }
 
 #container{
