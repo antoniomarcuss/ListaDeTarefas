@@ -54,9 +54,11 @@
           if (isChecked) {
             checkIcons.className = 'material-symbols-outlined offChecked';
             checkIcons.innerHTML = 'check_box';
+            texto.style.textDecoration = 'line-through'
           } else {
             checkIcons.className = 'material-symbols-outlined offChecked';
             checkIcons.innerHTML = 'check_box_outline_blank';
+            texto.style.textDecoration = 'none'
           }
         }
   
