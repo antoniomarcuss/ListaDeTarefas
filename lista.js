@@ -1,133 +1,115 @@
-(function() {
-    const form = document.querySelector('form');
-    const inputForm = document.getElementById('inputForm');
-    inputForm.focus()
-    form.addEventListener('submit', adicionarLista);
-    // Função para adicionar um novo item à lista
-    function adicionarLista(e) {
-      e.preventDefault();
-  
-      if (!inputForm.value) {
-        alert('Preencha os dados')
-      } else {
-  
-        const minhaUl = document.querySelector('ul');
-        const list = document.createElement('li');
-        minhaUl.appendChild(list);
-  
-        let checkIcons = document.createElement('span');
-        checkIcons.className = 'material-symbols-outlined offChecked';
-        checkIcons.innerHTML = 'check_box_outline_blank';
-        list.appendChild(checkIcons);
-  
-        const texto = document.createElement('p');
-        texto.textContent = inputForm.value;
-        list.appendChild(texto);
-  
-        inputForm.value = '';
-        inputForm.focus();
-  
-        const editIcons = document.createElement('span');
-        editIcons.className = 'material-symbols-outlined iconsEditButton';
-        editIcons.innerHTML = 'edit_document';
-        list.appendChild(editIcons);
-  
-        const deleteIcons = document.createElement('span');
-        deleteIcons.className = 'material-symbols-outlined deleteButton';
-        deleteIcons.innerHTML = 'delete';
-        list.appendChild(deleteIcons);
-  
-        const editListContainer = document.createElement('div');
-        editListContainer.className = 'editList';
-        list.appendChild(editListContainer);
-  
-        const editInput = document.createElement('input');
-        editInput.className = 'inputEdit';
-        editListContainer.appendChild(editInput);
-  
-        let isChecked = false;
-        checkIcons.addEventListener('click', checkList);
-  
-        // Função para alternar o estado de checked/unchecked ao clicar no ícone de checkbox
-        function checkList() {
-          isChecked = !isChecked;
-          if (isChecked) {
-            checkIcons.className = 'material-symbols-outlined offChecked';
-            checkIcons.innerHTML = 'check_box';
-            texto.style.textDecoration = 'line-through'
-          } else {
-            checkIcons.className = 'material-symbols-outlined offChecked';
-            checkIcons.innerHTML = 'check_box_outline_blank';
-            texto.style.textDecoration = 'none'
-          }
-        }
-  
-        deleteIcons.addEventListener('click', deleteList);
-  
-        // Função para remover o item da lista ao clicar no ícone de exclusão
-        function deleteList() {
-          console.log('deletou');
-          list.remove();
-        }
-  
-        editIcons.addEventListener('click', editList);
-        texto.addEventListener('click', editList);
-  
-        let editButtonsAdded = false;
-        let isEditInputFocused = false;
-        let previousTextValue = '';
-  
-        // Função para editar o texto do item ao clicar no ícone de edição ou no próprio texto
-        function editList() {
-          console.log('editou');
-          let containerEdit = list.querySelector('.editList');
-          if (containerEdit.style.display === 'block') {
-            containerEdit.style.display = 'none';
-          } else {
-            containerEdit.style.display = 'block';
-            containerEdit.style.top = list.offsetTop + list.offsetHeight + 'px';
-  
-            if (!editButtonsAdded) {
-              editInput.style.display = 'inline-block';
-              editListContainer.appendChild(editInput);
-  
-              if (!isEditInputFocused) {
-                editInput.focus();
-                isEditInputFocused = true;
-              }
-  
-              editInput.value = texto.textContent;
-              previousTextValue = texto.textContent;
-  
-              const editButton = document.createElement('button');
-              editButton.textContent = 'Editar';
-              editButton.className = 'editButton';
-              editListContainer.appendChild(editButton);
-  
-              const cancelButton = document.createElement('button');
-              cancelButton.textContent = 'Cancelar';
-              cancelButton.className = 'cancelButton';
-              cancelButton.addEventListener('click', () => {
-                containerEdit.style.display = 'none';
-                isEditInputFocused = false;
-              });
-              editListContainer.appendChild(cancelButton);
-  
-              editButton.addEventListener('click', () => {
-                if (editInput.value.trim() === '') {
-                  editInput.value = previousTextValue;
-                }
-  
-                texto.textContent = editInput.value;
-                containerEdit.style.display = 'none';
-                isEditInputFocused = false;
-              });
-  
-              editButtonsAdded = true;
-            }
-          }
-        }
-      }
+
+const formAddTodo = document.querySelector('.addTodo')
+const todoContainer = document.querySelector('.todoContainer')
+const searchTodo = document.querySelector('.buscarTodo input')
+
+const creatTodo = inputValue =>{
+    if (inputValue) {
+        todoContainer.innerHTML +=
+            `<li class="d-flex">
+            <div class="icons">
+                <i class="fa-regular fa-square"></i>
+                <i class="fa-regular fa-square-check" style="color: rgb(3, 252, 77); display: none;"></i>
+            </div>
+            <span class="editable">${inputValue}</span>
+            <div class="icons">
+                <i class="far fa-pen-to-square"></i>
+                <i class="far fa-trash-alt"></i>
+            </div>
+            <div class="edit">
+                <input name="edit" type="text">
+                <div class="editIcons">
+                    <i class="fa-solid fa-check"></i>
+                    <i class="fa-solid fa-xmark"></i>
+                </div>
+            </div>
+        </li>`
     }
-  })();
-  
+}
+
+
+formAddTodo.addEventListener('submit', event => {
+    event.preventDefault()
+    const inputValue = event.target.add.value.trim().toLowerCase()
+    creatTodo(inputValue)
+    event.target.reset()
+})
+
+const deleteTodo = (element) => {
+    element.parentElement.parentElement.remove();
+    element.parentElement.remove();
+}
+
+const editTodo = (element, inputEdit, textLi) => {
+    inputEdit.value = textLi.textContent;
+    element.style.display = element.style.display === 'flex' ? 'none' : 'flex';
+    inputEdit.focus();
+}
+
+const saveTodo = (element, inputEdit, textLi) => {
+    textLi.textContent = inputEdit.value.toLowerCase();
+    element.style.display = 'none';
+}
+
+const cancelEdit = (element) => {
+    element.style.display = 'none';
+}
+
+const toggleTodoStatus = (element, textLi) => {
+    if (element.classList.contains('fa-square')) {
+        element.classList.remove('fa-square');
+        element.classList.add('fa-square-check');
+        textLi.classList.add('text');
+    } else {
+        element.classList.remove('fa-square-check');
+        element.classList.add('fa-square');
+        textLi.classList.remove('text');
+    }
+}
+
+
+
+todoContainer.addEventListener('click', event => {
+    const clickedElement = event.target;
+    const liElement = clickedElement.closest('li');
+    const edit = liElement.querySelector('.edit');
+    const inputEdit = edit.firstElementChild;
+    const textLi = liElement.querySelector('span.editable')
+
+    const iconDelete = clickedElement.classList.contains('fa-trash-alt')
+    const iconEdite = clickedElement.classList.contains('fa-pen-to-square')
+    const iconSave = clickedElement.classList.contains('fa-check')
+    const iconCancel = clickedElement.classList.contains('fa-xmark')
+    const iconSquare = clickedElement.classList.contains('fa-square')
+    const iconSquareCheck = clickedElement.classList.contains('fa-square-check')
+    const isEditableSpan = clickedElement.classList.contains('editable');
+
+    if (iconDelete) {
+        deleteTodo(clickedElement);
+    } else if (iconEdite || isEditableSpan) {
+        editTodo(edit, inputEdit, textLi);
+    } else if (iconSave) {
+        saveTodo(edit, inputEdit, textLi);
+    } else if (iconCancel) {
+        cancelEdit(edit);
+    } else if (iconSquare || iconSquareCheck ) {
+        toggleTodoStatus(clickedElement, textLi);
+    }
+});
+
+searchTodo.addEventListener('input', event => {
+    const inputValue = event.target.value.trim().toLowerCase()
+    Array.from(todoContainer.children)
+        .filter(todo => !todo.textContent.toLowerCase().includes(inputValue)
+        )
+        .forEach(todo => {
+            todo.setAttribute('class', 'hidden')
+        })
+    Array.from(todoContainer.children)
+        .filter(todo => todo.textContent.toLowerCase().includes(inputValue)
+        )
+        .forEach(todo => {
+            todo.setAttribute('class', 'd-flex')
+        })
+})
+

@@ -2,58 +2,44 @@
 <html lang="pt-br">
 <head>
     <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Lista de Tarefas</title>
     <link rel="stylesheet" href="style.css">
-    
-    <!-- icons -->
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <title>To-do List</title>
 </head>
 <body>
-    <main>
-        <div id="container">
-            <form action="#" autocomplete="off">
-                <h1>Lista de Tarefas</h1>
-                <div id="flex">
-                    <label for="inputForm"></label><input type="text" name="inputForm" id="inputForm" placeholder="Criar Tarefa">
-                    <button type="submit" id="btnAdd">Adicionar</button>
-                </div>
+    <div class="container">
+        <header>
+        <form class="buscarTodo" action="#">
+                <h1>To-do List</h1>
+                <input type="text" placeholder="Buscar to-do">
+                <ul class="todoContainer">
+                    <li class="d-flex">
+                        <div class="icons">
+                            <i class="fa-regular    fa-square"></i>
+                            <i class="fa-regular fa-square-check" style="color: rgb(3, 252, 77); display: none;"></i>
+                        </div>
+                        <span class="editable">exemplo to-do</span>
+                        <div class="icons">
+                            <i class="far fa-pen-to-square"></i>
+                            <i class="far fa-trash-alt"></i>
+                        </div>
+                        <div class="edit">
+                            <input name="edit" type="text">
+                            <div class="editIcons">
+                                <i class="fa-solid fa-check"></i>
+                                <i class="fa-solid fa-xmark"></i>
+                            </div>
+                        </div>
+                    </li>
+                </ul>
             </form>
-            <div id="containerList">
-               <ul></ul>
-            </div>
-            <div class="editList">
-        
-            </div>
-        
-        </div>
-    </main>
-
-    
-
-     <!-- <li>
-                    <span class="material-symbols-outlined">
-                        check_box_outline_blank
-                    </span>
-
-                    <span 
-                     class="material-symbols-outlined">
-                           check_box
-                    </span> 
-                    
-                        <p>Fazer academia</p>
-
-                        <span class="material-symbols-outlined">
-                            edit_document
-                        </span>
-
-                    <span class="material-symbols-outlined">
-                        delete
-                    </span>
-                    
-                </li>  -->
-
+        </header>
+        <form class="addTodo" action="#" autocomplete="off">
+            <label for="text">Adicionar to-do</label>
+            <input name="add" type="text" autofocus>
+        </form>
+    </div>
     <script src="lista.js"></script>
 </body>
 </html>
