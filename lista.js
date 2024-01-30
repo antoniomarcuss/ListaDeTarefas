@@ -1,30 +1,29 @@
-
 const formAddTodo = document.querySelector('.addTodo')
 const todoContainer = document.querySelector('.todoContainer')
 const searchTodo = document.querySelector('.buscarTodo input')
 
-const creatTodo = inputValue =>{
-    if (inputValue) {
-        todoContainer.innerHTML +=
-            `<li class="d-flex">
-            <div class="icons">
-                <i class="fa-regular fa-square"></i>
-                <i class="fa-regular fa-square-check" style="color: rgb(3, 252, 77); display: none;"></i>
+const creatTodo = inputValue => {
+    if (!inputValue) return
+
+    todoContainer.innerHTML +=
+        `<li class="d-flex">
+        <div class="icons">
+            <i class="fa-regular fa-square"></i>
+            <i class="fa-regular fa-square-check" style="color: rgb(3, 252, 77); display: none;"></i>
+        </div>
+        <span class="editable">${inputValue}</span>
+        <div class="icons">
+            <i class="far fa-pen-to-square"></i>
+            <i class="far fa-trash-alt"></i>
+        </div>
+        <div class="edit">
+            <input name="edit" type="text">
+            <div class="editIcons">
+                <i class="fa-solid fa-check"></i>
+                <i class="fa-solid fa-xmark"></i>
             </div>
-            <span class="editable">${inputValue}</span>
-            <div class="icons">
-                <i class="far fa-pen-to-square"></i>
-                <i class="far fa-trash-alt"></i>
-            </div>
-            <div class="edit">
-                <input name="edit" type="text">
-                <div class="editIcons">
-                    <i class="fa-solid fa-check"></i>
-                    <i class="fa-solid fa-xmark"></i>
-                </div>
-            </div>
-        </li>`
-    }
+        </div>
+    </li>`
 }
 
 
@@ -92,7 +91,7 @@ todoContainer.addEventListener('click', event => {
         saveTodo(edit, inputEdit, textLi);
     } else if (iconCancel) {
         cancelEdit(edit);
-    } else if (iconSquare || iconSquareCheck ) {
+    } else if (iconSquare || iconSquareCheck) {
         toggleTodoStatus(clickedElement, textLi);
     }
 });
