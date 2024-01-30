@@ -2,11 +2,25 @@ const formAddTodo = document.querySelector('.addTodo')
 const todoContainer = document.querySelector('.todoContainer')
 const searchTodo = document.querySelector('.buscarTodo input')
 
-const creatTodo = inputValue => {
+const localStorageRepository = (() => {
+    const getTodos = () => JSON.parse(localStorage.getItem('todos')) || []
+    const addTodo
+        = (todo) => {
+            console.log(`add todo`)
+            const todos = getTodos()
+            localStorage.setItem('todos', JSON.stringify([...todos, todo]))
+        }
+    return {
+        getTodos,
+        addTodo,
+    }
+})()
+
+const createTodo = inputValue => {
     if (!inputValue) return
 
-    todoContainer.innerHTML +=
-        `<li class="d-flex">
+    const todo = `
+    <li class="d-flex">
         <div class="icons">
             <i class="fa-regular fa-square"></i>
             <i class="fa-regular fa-square-check" style="color: rgb(3, 252, 77); display: none;"></i>
@@ -24,15 +38,9 @@ const creatTodo = inputValue => {
             </div>
         </div>
     </li>`
+
+    todoContainer.innerHTML += todo
 }
-
-
-formAddTodo.addEventListener('submit', event => {
-    event.preventDefault()
-    const inputValue = event.target.add.value.trim().toLowerCase()
-    creatTodo(inputValue)
-    event.target.reset()
-})
 
 const deleteTodo = (element) => {
     element.parentElement.parentElement.remove();
@@ -66,7 +74,13 @@ const toggleTodoStatus = (element, textLi) => {
     }
 }
 
-
+formAddTodo.addEventListener('submit', event => {
+    event.preventDefault()
+    const inputValue = event.target.add.value.trim().toLowerCase()
+    createTodo(inputValue)
+    localStorageRepository.addTodo(inputValue)
+    event.target.reset()
+})
 
 todoContainer.addEventListener('click', event => {
     const clickedElement = event.target;
@@ -95,6 +109,13 @@ todoContainer.addEventListener('click', event => {
         toggleTodoStatus(clickedElement, textLi);
     }
 });
+
+document.addEventListener('DOMContentLoaded', event => {
+    const todos = localStorageRepository.getTodos()
+    if (todos.length) todoContainer.innerHTML = ""
+    todos
+        .forEach((todo) => createTodo(todo))
+})
 
 searchTodo.addEventListener('input', event => {
     const inputValue = event.target.value.trim().toLowerCase()
